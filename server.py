@@ -8,6 +8,6 @@ def home():
 
 @route('/static/<filename:path>')
 def send_static(filename):
-    return static_file(filename, root='static/')
+    return static_file(filename, root='./static/')
 
 run(host='0.0.0.0', port=8080, debug=True)
