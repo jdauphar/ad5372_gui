@@ -7,55 +7,55 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="static/scripts.js"></script>
-    <link rel="stylesheet" href="static/styles.css">
+    <link rel="stylesheet" href="static/style.css">
     
 
   </head>
   <body>
-    %for column in range(1,3):
-    <div class="channels-{{column}}">
-      <table >
-        <tr>
-          <th>channel</th>
-          <th>voltage</th>
-        </tr>
-        %for row in range((16*(column-1)) +1,(column*16)+1):
-        <tr>
-          <td>{{row}}</td>
-          <td><input type="text" id="ch{{row}}"><br></td>
-          <td><input type="checkbox" id="s-ch{{row}}"><br></td>          
-        </tr>
-	%end
-      </table>
+    <div class="top-half">
+      %for column in range(1,3): # 2 columns for channels 1-16 and 17-32
+      <div class="channels-{{column}}">
+        <table >
+          <tr>
+            <th>channel</th>
+            <th>voltage</th>
+          </tr>
+          %for row in range((16*(column-1)) +1,(column*16)+1):
+          %# there's probably a better way of doing this...
+          <tr>
+            <td>{{row}}</td>
+            <td><input type="text" id="ch{{row}}" oninput="BoxChangeEvent(ch{{row}})"></td>
+            <td><input type="checkbox" id="s-ch{{row}}"></td>          
+          </tr>
+	  %end
+        </table>
+      </div>
+      %end
     </div>
-    %end
-<!--
-    <div class="channels-2">
-      <table>
-        <tr>
-          <th>channel</th>
-          <th>voltage</th>
-        </tr>
-        %for row in range(17,33):
-        <tr>
-          <td>{{row}}</td>
-          <td><input type="text" id="ch{{row}}"><br></td>
-          <td><input type="checkbox" id="s-ch{{row}}"><br></td>          
-        </tr>
-	%end
-      </table>
+      <div class="configs">
+        <table>
+          
+          <tr><td><button id="sel-all">select all</button></td></tr>
+          <tr><td><button id="dsel-all">deselect all</button></td></tr>
+          <tr><td><input type="file" id="upload-config">upload config</input></td></tr> 
+          <tr><td><button id="update-board">update board with currently selected</button></td></tr>
+          
+        </table>
+      </div>
+</div>
+    <br>
+    <div class="bottom-half">
+      <p>
+        NOTES: <br/>
+        add a mongodb thing to store most recent, as well as saved, named configs <br/>
+        make sure ajax can get at the library and load it easily<br/>
+        save configs to that, be able to upload them too i guess, but store in mongodb to make it more readable <br/>
+        make bottom-half class div the saved config library. allow browsing of library, rename, basic CRUD<br/>
+        maybe tooltips to remind the user what a given config does: list channels, add comments<br/>
+        add config sequencing functionality, string configs together with timings between them <br/>
+        add icons from simple-icons on github, shout them out in the readme <br/>
+        use bootstrap tables, cards, not sure why i haven't yet <br/>
+        optimize comms to ignore unchanged channels while you're at it <br/>
     </div>
--->
-    <div class="configs">
-      <table>
-        
-        <tr><input type="button" id="sel-all">select all</input></tr>
-        <tr><input type="button" id="dsel-all">deselect all</input></tr>
-        <tr><input type="file" id="config-upload">upload config</input></tr>
-        <tr><input type="" id="s-all">upload config</input></tr>
-        <tr><input type="button" id="update-board">update board with currently selected</input></tr>
-      </table>
-    </div>
-    
   </body>
 </html>
