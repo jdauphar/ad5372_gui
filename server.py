@@ -12,16 +12,14 @@ def home():
 @post('/save_config')
 def save_config():
     print("post called")
-#    data = request.json()
-    
-    config_list = []
+    config = {'config_list':[], 'name':""}
     for i in range(0,33):
-        config_list.append([i,request.forms.get('ch{}'.format(i))])
-    print(config_list)
-    print("-------------")
-#    print(data)
-    print("end of post sending")
-    return redirect('/')
+        config['config_list'].append([i,request.forms.get('ch{}'.format(i))])
+    config['name'] = request.forms.get('config_name_to_save')
+    db.save_config(config['config_list'], config['name'])
+
+
+
 @post('/')
 def send_config():
     pass

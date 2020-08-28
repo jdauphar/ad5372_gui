@@ -2,7 +2,8 @@ from tinydb import TinyDB, Query
 
 def save_config(config_list, name):
     db = TinyDB('config_db.json')
-    res = db.insert({'channels':config_list, 'name':name})
+    res = db.insert({'channels':config_list, 'name':name}, 'current':True)
+    db.close()
     return res
 
 def get_config_by_name(name):
