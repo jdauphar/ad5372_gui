@@ -16,8 +16,8 @@ def save_config():
     for i in range(0,33):
         config['config_list'].append([i,request.forms.get('ch{}'.format(i))])
     config['name'] = request.forms.get('config_name_to_save')
-    db.save_config(config['config_list'], config['name'])
-
+    db.save_config(config)
+    print(config)
 
 
 @post('/')
