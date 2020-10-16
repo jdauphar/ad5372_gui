@@ -1,4 +1,4 @@
-* {
+/* {
     margin: 0;
     padding: 0;
     border: 1;
@@ -10,7 +10,7 @@
 
 .top-half{
     top:0;
-    max-height:50%;
+    max-height:40%;
 }
 
 .channels-1{
@@ -34,3 +34,5 @@
     //top:0;
     //float:right;
 }
+
+*/

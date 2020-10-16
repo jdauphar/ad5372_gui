@@ -5,19 +5,21 @@ from datetime import datetime, date
 
 @route('/')
 def home():
-    #configs = db.get_all_configs()
-    configs = 0
-    return template('index.html', configs = configs)    
+    saved_configs = db.get_all_configs()
+    current_config = db.get_current_config()
+    return template('index.html', saved_configs = saved_configs, current_config = current_config)    
 
 @post('/save_config')
 def save_config():
+    db.set_all_configs_to_not_current()
     print("post called")
-    config = {'config_list':[], 'name':""}
-    for i in range(0,33):
-        config['config_list'].append([i,request.forms.get('ch{}'.format(i))])
+    config = {'channels':[], 'name':""}
+    for i in range(0,32):
+        config['channels'].append([i,request.forms.get('ch{}'.format(i))])
     config['name'] = request.forms.get('config_name_to_save')
     db.save_config(config)
     print(config)
+    return redirect('/')
 
 
 @post('/')
